@@ -12,6 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     
     permissions:
+      actions: read
       # Required to interact with GitHub's OIDC Token endpoint
       id-token: write
       # Required for Checkout action
