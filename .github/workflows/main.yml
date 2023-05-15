@@ -5,11 +5,16 @@ on:
     branches: [ "main" ]
   pull_request:
     branches: [ "main" ]
+  schedule:
+    - cron: '19 20 * * 4'
 
 jobs:
-  build:
+  analyze:
+    name: Analyze
+    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+  #build:
 
-    runs-on: ubuntu-latest
+    #runs-on: ubuntu-latest
     
     permissions:
       actions: read
@@ -19,12 +24,30 @@ jobs:
       contents: read
       # Required for CodeQL action (upload SARIF file)
       security-events: write
+      
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [ 'java' ]
     
     steps:
     - name: checkout repository
       uses: actions/checkout@v2
       with:
         fetch-depth: 0
+        
+    - name: Initialize CodeQL
+      uses: github/codeql-action/init@v2
+      with:
+        languages: ${{ matrix.language }}
+        
+    - name: Autobuild
+      uses: github/codeql-action/autobuild@v2
+      
+    - name: Perform CodeQL Analysis
+      uses: github/codeql-action/analyze@v2
+      with:
+        category: "/language:${{matrix.language}}"
         
     - name: Configure AWS Credentials
       if: ${{ always() }}
