@@ -11,6 +11,14 @@ jobs:
 
     runs-on: ubuntu-latest
     
+    permissions:
+      # Required to interact with GitHub's OIDC Token endpoint
+      id-token: write
+      # Required for Checkout action
+      contents: read
+      # Required for CodeQL action (upload SARIF file)
+      security-events: write
+    
     steps:
     - name: checkout repository
       uses: actions/checkout@v2
