@@ -9,12 +9,12 @@ on:
     - cron: '19 20 * * 4'
 
 jobs:
-  analyze:
-    name: Analyze
-    runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
-  #build:
+  #analyze:
+    #name: Analyze
+    #runs-on: ${{ (matrix.language == 'swift' && 'macos-latest') || 'ubuntu-latest' }}
+  build:
 
-    #runs-on: ubuntu-latest
+    runs-on: ubuntu-latest
     
     permissions:
       actions: read
