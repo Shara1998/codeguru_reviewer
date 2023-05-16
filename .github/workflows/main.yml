@@ -69,8 +69,8 @@ jobs:
       run: curl -OL "https://github.com/aws/aws-codeguru-cli/releases/download/$VERSION/aws-codeguru-cli.zip"
     - run: unzip aws-codeguru-cli.zip
         
-    #- name: Build with maven
-      #run: mvn -B package --file pom.xml
+    - name: Build with maven
+      run: mvn -B package --file pom.xml
       
     - name: CodeGuru Reviewer
       uses: aws-actions/codeguru-reviewer@v1.1
